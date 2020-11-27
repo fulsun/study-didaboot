@@ -1,19 +1,29 @@
 package top.fulsun.entity;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@Api("清单实体类")
 public class Category implements Serializable {
+    @ApiModelProperty("清单ID")
     private Integer id;
 
+    @ApiModelProperty("用户ID")
     private Integer userId;
 
+    @ApiModelProperty("清单名称")
     private String name;
 
+    @ApiModelProperty("创建时间")
     private LocalDateTime createTime;
 
+    @ApiModelProperty("修改时间")
     private LocalDateTime updateTime;
 
+    @ApiModelProperty("是否被删除")
     private Byte run;
 
     private static final long serialVersionUID = 1L;
@@ -77,13 +87,13 @@ public class Category implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Category other = (Category) that;
+        Category other = (Category)that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getRun() == null ? other.getRun() == null : this.getRun().equals(other.getRun()));
+         && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+         && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+         && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+         && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+         && (this.getRun() == null ? other.getRun() == null : this.getRun().equals(other.getRun()));
     }
 
     @Override
