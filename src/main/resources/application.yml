@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://192.168.61.45:3306/springbootdemo?characterEncoding=utf8&useSSL=false&serverTimezone=GMT&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://192.168.61.45:3306/springbootdemo?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: fulsun
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver

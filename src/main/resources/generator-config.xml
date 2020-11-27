@@ -1,0 +1,105 @@
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- targetRuntime: MyBatis3DynamicSql/MyBatis3/MyBatis3Simple    -->
+    <context id="mysql" defaultModelType="flat" targetRuntime="MyBatis3">
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <!--添加分隔符-->
+        <property name="beginningDelimiter" value="'"></property>
+        <property name="endingDelimiter" value="'"></property>
+
+
+        <!--默认生成getter/setter方法，使用插件忽略生成getter/setter方法-->
+        <!--<plugin type="com.mybatis.plugin.IngoreSetterAndGetterPlugin" />-->
+        <!--用于在实体类中实现java.io.Serializable接口-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+        <!--用于重写equals 和 hashCode 方法-->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin">
+            <property name="useEqualsHashCodeFromRoot" value="true"/>
+        </plugin>
+        <!--用于生成 toString 方法-->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin">
+            <property name="useToStringFromRoot" value="true"/>
+        </plugin>
+
+        <!--生成注释信息的配置-->
+        <commentGenerator>
+            <!--阻止生成注释，默认为false-->
+            <property name="suppressAllComments" value="true"></property>
+            <!--阻止生成的注释包含时间戳，默认为false-->
+            <property name="suppressDate" value="true"></property>
+            <!--注释是否添加数据库表的备注信息，默认为false-->
+            <property name="addRemarkComments" value="true"></property>
+        </commentGenerator>
+
+        <!--数据库连接信息-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.61.45:3306/springbootdemo?serverTimezone=Asia/Shanghai"
+                        userId="fulsun"
+                        password="123456">
+            <!-- 对于Connector / J的8.x版本 禁止从MySql信息模式中的表生成代码 -->
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <!--javaTypeResolver:节点用于指定和配置 Java 类型解析器。-->
+        <javaTypeResolver>
+            <!--默认的解析器可能会将数据库类型 decimal 或 numberic 解析为Short、Integer、Long等 Java 类型，-->
+            <property name="forceBigDecimals" value="ture"/>
+            <!--是否不强制将数据库类型 date, time 和 timestamp 解析为 Date;
+                  默认为false，如果为true，
+                  解析规则将变成：date -> LocalDate，time -> LocalTime，timestamp -> LocalDateTime-->
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+
+        <!--javaModelGenerator : 节点用于配置实体类生成器-->
+        <!--targetPackage：生成实体类存放的包名 targetProject：指定目标项目路径，可以使用绝对路径D:\Java或者相对路径src/main/java -->
+        <javaModelGenerator targetPackage="top.fulsun.entity" targetProject="src/main/java">
+            <!-- constructorBased为true就会使用构造方法入参，为false使用setter方法入参，默认为false -->
+            <!--<property name="constructorBased" value="false"></property>-->
+            <!--enableSubPackages 是否在targetPackage基础上生成子包。默认为false。当为true时，会将表所在 schema 名作为子包名-->
+            <!--<property name="enableSubPackages" value="false" />-->
+            <!--immutable：用于配置实体类属性是否可变，如果为true，不管constructorBased设置，都会使用构造方法入参不会生成setter方法。
+              如果为false实体类属性可以改变，默认为false-->
+            <!--<property name="immutable" value="false"></property>-->
+            <!--设置所有实体类的基类-->
+            <!--<property name="rootClass" value="类的全限定名"></property>-->
+            <!--在setter方法中是否对传入字符串进行 trim 操作-->
+            <!--<property name="trimStrings" value="true" />-->
+        </javaModelGenerator>
+
+        <!--sqlMapGenerator : 节点用于配置 XML 生成器-->
+        <sqlMapGenerator targetPackage="top.fulsun.mapper" targetProject="src/main/resources">
+            <!--enableSubPackages ： 是否在targetPackage基础上生成子包。默认为false。当为true时，会将表所在 schema 名作为子包名-->
+            <!--<property name="enableSubPackages" value="false" />-->
+        </sqlMapGenerator>
+
+        <!-- javaClientGenerator：最多配置一个，用于生成mapper接口
+              MyBatis3：ANNOTATEDMAPPER、MIXEDMAPPER、XMLMAPPER
+              MyBtais3Simple：ANNOTATEDMAPPER、XMLMAPPER
+          -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="top.fulsun.mapper" targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!--表的配置-->
+        <!-- 指定单个数据库表 -->
+        <!--<table tableName="userinfo"></table>-->
+        <!--<table tableName="adjustsalary" domainObjectName="AdjustSalary"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>-->
+        <table tableName="category"></table>
+        <table tableName="label"></table>
+        <table tableName="task"></table>
+        <table tableName="task_label"></table>
+        <table tableName="user"></table>
+    </context>
+</generatorConfiguration>

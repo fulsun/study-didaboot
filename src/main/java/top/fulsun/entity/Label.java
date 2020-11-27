@@ -3,7 +3,7 @@ package top.fulsun.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Category implements Serializable {
+public class Label implements Serializable {
     private Integer id;
 
     private Integer userId;
@@ -77,7 +77,7 @@ public class Category implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Category other = (Category) that;
+        Label other = (Label) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))

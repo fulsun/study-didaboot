@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.fulsun.mapper.CategoryMapper">
-  <resultMap id="BaseResultMap" type="top.fulsun.entity.Category">
+<mapper namespace="top.fulsun.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="top.fulsun.entity.User">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="run" jdbcType="TINYINT" property="run" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
+    <result column="roles" jdbcType="VARCHAR" property="roles" />
+    <result column="status" jdbcType="TINYINT" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,15 +72,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, name, create_time, update_time, run
+    id, username, telephone, password, create_time, update_time, email, head_portrait, 
+    roles, status
   </sql>
-  <select id="selectByExample" parameterType="top.fulsun.entity.CategoryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="top.fulsun.entity.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from category
+    from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,38 +92,43 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from category
+    from user
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from category
+    delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="top.fulsun.entity.CategoryExample">
-    delete from category
+  <delete id="deleteByExample" parameterType="top.fulsun.entity.UserExample">
+    delete from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="top.fulsun.entity.Category">
-    insert into category (id, user_id, name, 
-      create_time, update_time, run
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{run,jdbcType=TINYINT}
-      )
+  <insert id="insert" parameterType="top.fulsun.entity.User">
+    insert into user (id, username, telephone, 
+      password, create_time, update_time, 
+      email, head_portrait, roles, 
+      status)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{email,jdbcType=VARCHAR}, #{headPortrait,jdbcType=VARCHAR}, #{roles,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="top.fulsun.entity.Category">
-    insert into category
+  <insert id="insertSelective" parameterType="top.fulsun.entity.User">
+    insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="userId != null">
-        user_id,
+      <if test="username != null">
+        username,
       </if>
-      <if test="name != null">
-        name,
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="password != null">
+        password,
       </if>
       <if test="createTime != null">
         create_time,
@@ -126,19 +136,31 @@
       <if test="updateTime != null">
         update_time,
       </if>
-      <if test="run != null">
-        run,
+      <if test="email != null">
+        email,
+      </if>
+      <if test="headPortrait != null">
+        head_portrait,
+      </if>
+      <if test="roles != null">
+        roles,
+      </if>
+      <if test="status != null">
+        status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -146,28 +168,40 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="run != null">
-        #{run,jdbcType=TINYINT},
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="headPortrait != null">
+        #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="roles != null">
+        #{roles,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="top.fulsun.entity.CategoryExample" resultType="java.lang.Long">
-    select count(*) from category
+  <select id="countByExample" parameterType="top.fulsun.entity.UserExample" resultType="java.lang.Long">
+    select count(*) from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update category
+    update user
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.telephone != null">
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -175,8 +209,17 @@
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.run != null">
-        run = #{record.run,jdbcType=TINYINT},
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headPortrait != null">
+        head_portrait = #{record.headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roles != null">
+        roles = #{record.roles,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -184,25 +227,32 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update category
+    update user
     set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      run = #{record.run,jdbcType=TINYINT}
+      email = #{record.email,jdbcType=VARCHAR},
+      head_portrait = #{record.headPortrait,jdbcType=VARCHAR},
+      roles = #{record.roles,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="top.fulsun.entity.Category">
-    update category
+  <update id="updateByPrimaryKeySelective" parameterType="top.fulsun.entity.User">
+    update user
     <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -210,19 +260,32 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="run != null">
-        run = #{run,jdbcType=TINYINT},
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="headPortrait != null">
+        head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="roles != null">
+        roles = #{roles,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="top.fulsun.entity.Category">
-    update category
-    set user_id = #{userId,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="top.fulsun.entity.User">
+    update user
+    set username = #{username,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      run = #{run,jdbcType=TINYINT}
+      email = #{email,jdbcType=VARCHAR},
+      head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      roles = #{roles,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

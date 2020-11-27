@@ -3,18 +3,16 @@ package top.fulsun.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Category implements Serializable {
+public class TaskLabel implements Serializable {
     private Integer id;
 
-    private Integer userId;
+    private Integer taskId;
 
-    private String name;
+    private Integer labelId;
 
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
-
-    private Byte run;
 
     private static final long serialVersionUID = 1L;
 
@@ -26,20 +24,20 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getTaskId() {
+        return taskId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
     }
 
-    public String getName() {
-        return name;
+    public Integer getLabelId() {
+        return labelId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLabelId(Integer labelId) {
+        this.labelId = labelId;
     }
 
     public LocalDateTime getCreateTime() {
@@ -58,14 +56,6 @@ public class Category implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Byte getRun() {
-        return run;
-    }
-
-    public void setRun(Byte run) {
-        this.run = run;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -77,13 +67,12 @@ public class Category implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Category other = (Category) that;
+        TaskLabel other = (TaskLabel) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getTaskId() == null ? other.getTaskId() == null : this.getTaskId().equals(other.getTaskId()))
+            && (this.getLabelId() == null ? other.getLabelId() == null : this.getLabelId().equals(other.getLabelId()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getRun() == null ? other.getRun() == null : this.getRun().equals(other.getRun()));
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override
@@ -91,11 +80,10 @@ public class Category implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getTaskId() == null) ? 0 : getTaskId().hashCode());
+        result = prime * result + ((getLabelId() == null) ? 0 : getLabelId().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getRun() == null) ? 0 : getRun().hashCode());
         return result;
     }
 
@@ -106,11 +94,10 @@ public class Category implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", userId=").append(userId);
-        sb.append(", name=").append(name);
+        sb.append(", taskId=").append(taskId);
+        sb.append(", labelId=").append(labelId);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
-        sb.append(", run=").append(run);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

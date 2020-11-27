@@ -1,34 +1,30 @@
 package top.fulsun.mapper;
 
-import top.fulsun.entity.Category;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
+import top.fulsun.entity.Category;
+import top.fulsun.entity.CategoryExample;
 
-/**
- * @program: springbootdemo
- * @description: 清单的Mapper接口
- * @author: fulsun
- * @create: 2020-11-26 17:25
- **/
 public interface CategoryMapper {
-    /**
-     * 查询所有的清单
-     */
-    List<Category> getAllCategory();
+    long countByExample(CategoryExample example);
 
-    /**
-     * 添加一个清单分类
-     * */
-    void addCategory(Category category);
+    int deleteByExample(CategoryExample example);
 
-    /**
-     * 根据id删除一个清单分类
-     * */
-    void deleteCategoryById(int id);
+    int deleteByPrimaryKey(Integer id);
 
-    /**
-     * 对清单分类的名称进行修改
-     * */
-    void updateCategory(Category category);
+    int insert(Category record);
 
+    int insertSelective(Category record);
+
+    List<Category> selectByExample(CategoryExample example);
+
+    Category selectByPrimaryKey(Integer id);
+
+    int updateByExampleSelective(@Param("record") Category record, @Param("example") CategoryExample example);
+
+    int updateByExample(@Param("record") Category record, @Param("example") CategoryExample example);
+
+    int updateByPrimaryKeySelective(Category record);
+
+    int updateByPrimaryKey(Category record);
 }

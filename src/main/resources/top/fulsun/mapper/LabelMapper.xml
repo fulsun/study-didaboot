@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.fulsun.mapper.CategoryMapper">
-  <resultMap id="BaseResultMap" type="top.fulsun.entity.Category">
+<mapper namespace="top.fulsun.mapper.LabelMapper">
+  <resultMap id="BaseResultMap" type="top.fulsun.entity.Label">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -70,13 +70,13 @@
   <sql id="Base_Column_List">
     id, user_id, name, create_time, update_time, run
   </sql>
-  <select id="selectByExample" parameterType="top.fulsun.entity.CategoryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="top.fulsun.entity.LabelExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from category
+    from label
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,29 +87,29 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from category
+    from label
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from category
+    delete from label
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="top.fulsun.entity.CategoryExample">
-    delete from category
+  <delete id="deleteByExample" parameterType="top.fulsun.entity.LabelExample">
+    delete from label
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="top.fulsun.entity.Category">
-    insert into category (id, user_id, name, 
+  <insert id="insert" parameterType="top.fulsun.entity.Label">
+    insert into label (id, user_id, name, 
       create_time, update_time, run
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{run,jdbcType=TINYINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="top.fulsun.entity.Category">
-    insert into category
+  <insert id="insertSelective" parameterType="top.fulsun.entity.Label">
+    insert into label
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -151,14 +151,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="top.fulsun.entity.CategoryExample" resultType="java.lang.Long">
-    select count(*) from category
+  <select id="countByExample" parameterType="top.fulsun.entity.LabelExample" resultType="java.lang.Long">
+    select count(*) from label
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update category
+    update label
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -184,7 +184,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update category
+    update label
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
@@ -195,8 +195,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="top.fulsun.entity.Category">
-    update category
+  <update id="updateByPrimaryKeySelective" parameterType="top.fulsun.entity.Label">
+    update label
     <set>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
@@ -216,8 +216,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="top.fulsun.entity.Category">
-    update category
+  <update id="updateByPrimaryKey" parameterType="top.fulsun.entity.Label">
+    update label
     set user_id = #{userId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

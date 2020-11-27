@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.fulsun.mapper.CategoryMapper">
-  <resultMap id="BaseResultMap" type="top.fulsun.entity.Category">
+<mapper namespace="top.fulsun.mapper.TaskLabelMapper">
+  <resultMap id="BaseResultMap" type="top.fulsun.entity.TaskLabel">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="label_id" jdbcType="INTEGER" property="labelId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="run" jdbcType="TINYINT" property="run" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, name, create_time, update_time, run
+    id, task_id, label_id, create_time, update_time
   </sql>
-  <select id="selectByExample" parameterType="top.fulsun.entity.CategoryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="top.fulsun.entity.TaskLabelExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from category
+    from task_label
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,38 +86,36 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from category
+    from task_label
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from category
+    delete from task_label
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="top.fulsun.entity.CategoryExample">
-    delete from category
+  <delete id="deleteByExample" parameterType="top.fulsun.entity.TaskLabelExample">
+    delete from task_label
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="top.fulsun.entity.Category">
-    insert into category (id, user_id, name, 
-      create_time, update_time, run
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{run,jdbcType=TINYINT}
-      )
+  <insert id="insert" parameterType="top.fulsun.entity.TaskLabel">
+    insert into task_label (id, task_id, label_id, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{labelId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="top.fulsun.entity.Category">
-    insert into category
+  <insert id="insertSelective" parameterType="top.fulsun.entity.TaskLabel">
+    insert into task_label
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="userId != null">
-        user_id,
+      <if test="taskId != null">
+        task_id,
       </if>
-      <if test="name != null">
-        name,
+      <if test="labelId != null">
+        label_id,
       </if>
       <if test="createTime != null">
         create_time,
@@ -126,19 +123,16 @@
       <if test="updateTime != null">
         update_time,
       </if>
-      <if test="run != null">
-        run,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="labelId != null">
+        #{labelId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -146,28 +140,25 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="run != null">
-        #{run,jdbcType=TINYINT},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="top.fulsun.entity.CategoryExample" resultType="java.lang.Long">
-    select count(*) from category
+  <select id="countByExample" parameterType="top.fulsun.entity.TaskLabelExample" resultType="java.lang.Long">
+    select count(*) from task_label
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update category
+    update task_label
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
+      <if test="record.taskId != null">
+        task_id = #{record.taskId,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.labelId != null">
+        label_id = #{record.labelId,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -175,34 +166,30 @@
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.run != null">
-        run = #{record.run,jdbcType=TINYINT},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update category
+    update task_label
     set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+      task_id = #{record.taskId,jdbcType=INTEGER},
+      label_id = #{record.labelId,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      run = #{record.run,jdbcType=TINYINT}
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="top.fulsun.entity.Category">
-    update category
+  <update id="updateByPrimaryKeySelective" parameterType="top.fulsun.entity.TaskLabel">
+    update task_label
     <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="labelId != null">
+        label_id = #{labelId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -210,19 +197,15 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="run != null">
-        run = #{run,jdbcType=TINYINT},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="top.fulsun.entity.Category">
-    update category
-    set user_id = #{userId,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="top.fulsun.entity.TaskLabel">
+    update task_label
+    set task_id = #{taskId,jdbcType=INTEGER},
+      label_id = #{labelId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      run = #{run,jdbcType=TINYINT}
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
