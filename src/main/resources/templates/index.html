@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>our-task</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/all.min.css" th:href="@{/css/all.min.css}">
+    <link rel="stylesheet" href="css/adminlte.min.css" th:href="@{/css/adminlte.min.css}">
+    <link rel="stylesheet" href="css/OverlayScrollbars.min.css" th:href="@{/css/OverlayScrollbars.min.css}">
+
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <!-- 这是头部导航 -->
+
+    <!-- /.navbar -->
+
+    <!-- 这是左侧菜单 -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="#" class="brand-link">
+            <img src="img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">清单列表</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                今天
+
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                明天
+
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                                <div class="image">
+                                    <img src="img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                                </div>
+                <div class="info">
+                    <a type="button" data-toggle="modal" data-target="#create-category" class="d-block">
+                        添加新的清单分类
+                    </a>
+                </div>
+            </div>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- 这是中间的内容-->
+    <div class="content-wrapper" style="min-height: 976.4px;">
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">今天的清单</h3>
+
+                                <div class="card-tools">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input type="text" name="table_search" class="form-control float-right"
+                                               placeholder="搜索">
+
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0" style="height: 500px;">
+                                <table class="table table-head-fixed text-nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>清单名称</th>
+                                        <th>详情</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <input type="checkbox">
+                              </span>
+                                                    </div>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <!-- /input-group -->
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                                    data-target="#modal-success">
+                                                显示详情
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <input type="checkbox">
+                              </span>
+                                                    </div>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <!-- /input-group -->
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                                    data-target="#modal-success">
+                                                显示详情
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <input type="checkbox">
+                              </span>
+                                                    </div>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <!-- /input-group -->
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                                    data-target="#modal-success">
+                                                显示详情
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <input type="checkbox">
+                              </span>
+                                                    </div>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <!-- /input-group -->
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                                    data-target="#modal-success">
+                                                显示详情
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+
+                <!-- 这是那个弹框的代码 -->
+                <div class="modal fade" id="modal-success" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-success">
+                            <div class="modal-header">
+                                <h4 class="modal-title">清单详情</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <textarea class="form-control" rows="3" placeholder="请输入清单的描述信息"></textarea>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-outline-light" data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-outline-light">确认修改</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+                <!-- 添加新的清单分类的弹框 -->
+                <div class="modal fade" id="create-category" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-success">
+                            <div class="modal-header">
+                                <h4 class="modal-title">请输入分类名称</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" class="form-control" placeholder="Enter ...">
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-outline-light" data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-outline-light">确认添加</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 1.0.0
+        </div>
+        <strong>Copyright © 2020 <a href="#">冷小风的IT生活</a>.</strong> All rights
+        reserved.
+    </footer>
+</div>
+<!-- ./wrapper -->
+
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-ui.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/adminlte.js}"></script>
+
+</body>
+</html>
