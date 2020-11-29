@@ -37,7 +37,13 @@ spring:
 #        enabled: true
 #        login-username: druid
 #        login-password: druid
-
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    # #开发时关闭缓存,不然没法看到实时页面
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
 ---
 spring:
   profiles: dev
