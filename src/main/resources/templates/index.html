@@ -96,6 +96,7 @@
                                     <thead>
                                     <tr>
                                         <th>清单名称</th>
+                                        <th>更新名称</th>
                                         <th>详情</th>
                                     </tr>
                                     </thead>
@@ -109,14 +110,23 @@
                                                         <input type="checkbox">
                                                       </span>
                                                     </div>
-                                                    <input type="text" class="form-control" th:placeholder="${task.name}">
+                                                    <input type="text" id="taskName" class="form-control" th:value="${task.name}">
                                                 </div>
                                                 <!-- /input-group -->
                                             </div>
                                         </td>
                                         <td>
+                                            <form id="updateTask" method="post" th:action="@{/task/updateTask}">
+                                                <input type="hidden" name="id" th:value="${task.getId()}">
+                                                <input type="hidden" id="updateTaskName" name="name" value="">
+                                                <!-- <input type="submit" class="btn btn-block btn-success" value="确认更新">-->
+                                                <button type="button" class="btn btn-block btn-success" onclick="confirmUpdateTask()">确认更新</button>
+                                            </form>
+                                        </td>
+                                        <td>
                                             <button type="button" class="btn btn-success" data-toggle="modal"
-                                                    data-target="#modal-success">
+                                                    data-target="#modal-success"
+                                                    data-task="${task}">
                                                 显示详情
                                             </button>
                                         </td>
@@ -196,6 +206,6 @@
 <script th:src="@{/js/jquery-ui.min.js}"></script>
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/js/adminlte.js}"></script>
-
+<script th:src="@{/js/common.js}"></script>
 </body>
 </html>

@@ -12,6 +12,15 @@
  File Encoding         : 65001
 
  Date: 27/11/2020 02:02:12
+
+-- 添加用户
+    create user 'fulsun'@'%' identified by '1234556';
+    grant all on *.* to'fulsun'@'%';
+    flush privileges;
+
+-- 创建数据库
+    drop database springbootdemo;
+    create database if not exists springbootdemo  default charset = utf8mb4 collate utf8mb4_general_ci;
 */
 
 SET NAMES utf8mb4;
