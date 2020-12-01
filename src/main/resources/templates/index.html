@@ -23,7 +23,7 @@
     <!-- 这是左侧菜单 -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="#" class="brand-link">
+        <a th:href="@{/index}" class="brand-link">
             <img th:src="@{/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">清单列表</span>
@@ -42,8 +42,9 @@
                          with font-awesome or any other icon font library -->
                     <li class="nav-item" th:each="category : ${session.categoryLists}">
                         <!-- <a href="#" class="nav-link" th:href="@{/category/ + ${category.id}}"+>-->
-                        <a href="#" class="nav-link" th:href="@{|/category/${category.id}}"+>
-                            <i class="nav-icon fas fa-th"></i>
+                        <a href="#" class="nav-link" th:href="@{|/category/${category.id}}" +>
+                            <!-- 图标留着，以后弄-->
+                            <!-- <i class="nav-icon fas fa-th"></i>-->
                             <p th:text="${category.name}">
                             </p>
                         </a>
@@ -77,8 +78,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">今天的清单</h3>
-
+                                <!-- th:text好像会覆盖标签里面的文本内容-->
+                                <h3 class="card-title" th:text="${currentCategory.getName()} + '的清单'"></h3>
                                 <div class="card-tools">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="table_search" class="form-control float-right"
@@ -111,7 +112,8 @@
                                                         <input type="checkbox">
                                                       </span>
                                                     </div>
-                                                    <input type="text" id="taskName" class="form-control" th:value="${task.name}">
+                                                    <input type="text" id="taskName" class="form-control"
+                                                           th:value="${task.name}">
                                                 </div>
                                                 <!-- /input-group -->
                                             </div>
@@ -121,7 +123,9 @@
                                                 <input type="hidden" name="id" th:value="${task.getId()}">
                                                 <input type="hidden" id="updateTaskName" name="name" value="">
                                                 <!-- <input type="submit" class="btn btn-block btn-success" value="确认更新">-->
-                                                <button type="button" class="btn btn-block btn-success" onclick="confirmUpdateTask()">确认更新</button>
+                                                <button type="button" class="btn btn-block btn-success"
+                                                        onclick="confirmUpdateTask()">确认更新
+                                                </button>
                                             </form>
                                         </td>
                                         <td>
@@ -172,13 +176,15 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span></button>
                             </div>
-                            <div class="modal-body">
-                                <input type="text" class="form-control" placeholder="Enter ...">
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-outline-light" data-dismiss="modal">关闭</button>
-                                <button type="button" class="btn btn-outline-light">确认添加</button>
-                            </div>
+                            <form th:action="@{/category/add}" method="post">
+                                <div class="modal-body">
+                                    <input type="text" class="form-control" placeholder="Enter ..." id="newCategory">
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" id="btn1" class="btn btn-outline-light" data-dismiss="modal">关闭</button>
+                                    <button type="button" id="addCategory" class="btn btn-outline-light" onclick="addcategory()">确认添加</button>
+                                </div>
+                            </form>
                         </div>
                         <!-- /.modal-content -->
                     </div>

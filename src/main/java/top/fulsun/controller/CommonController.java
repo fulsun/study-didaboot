@@ -45,6 +45,10 @@ public class CommonController {
         } else {
             taskListForToday = null;
         }
+
+        List<Category> categoryByIdOrName = getCategoryByIdOrName(id, null);
+        Category category = categoryByIdOrName.get(0);
+        model.addAttribute("currentCategory", category);
         model.addAttribute("taskList", taskListForToday);
         return "index";
     }
@@ -71,6 +75,9 @@ public class CommonController {
         } else {
             taskListForToday = null;
         }
+
+        Category category = todayLists.get(0);
+        model.addAttribute("currentCategory", category);
         model.addAttribute("taskList", taskListForToday);
         return "index";
     }

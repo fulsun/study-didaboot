@@ -31,7 +31,7 @@ public class CategoryController {
     }
 
     @ApiOperation("添加一个清单分类")
-    @PostMapping("/addCategory")
+    @PostMapping("/add")
     @ApiResponse(code = 1, message = "添加成功")
     @ApiImplicitParam(name = "category", required = true, paramType = "query")
     int addCategory(@ApiParam("添加的清单") @RequestBody Category category) {
