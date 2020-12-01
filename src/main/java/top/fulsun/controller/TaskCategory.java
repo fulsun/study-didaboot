@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import top.fulsun.entity.Task;
 import top.fulsun.mapper.TaskMapper;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author fulsun
@@ -41,6 +43,23 @@ public class TaskCategory {
         record.setRun((byte) 1);
         int i = taskMapper.updateByPrimaryKeySelective(record);
         String res= i != 0 ? "删除成功" : "删除失败";
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("data", res);
+        return map;
+    }
+
+    @ResponseBody
+    @PostMapping("/add")
+    public HashMap<String, Object> addTask(@RequestParam Map<String, Object> params ){
+        Task task = new Task();
+        task.setCreateTime(LocalDateTime.now());
+        task.setRun((byte)0);
+        String categoryId = params.get("categoryId").toString();
+        task.setCategoryId(Integer.valueOf(categoryId));
+        task.setName((String) params.get("name"));
+        task.setDescription((String) params.get("description"));
+        int i = taskMapper.insertSelective(task);
+        String res= i != 0 ? "添加成功" : "添加失败";
         HashMap<String, Object> map = new HashMap<>();
         map.put("data", res);
         return map;

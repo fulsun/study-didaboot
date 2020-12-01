@@ -6,7 +6,7 @@ function getInputValueById() {
 function confirmUpdateTask() {
     // $("#updateTask").submit();
     var name = getInputValueById();
-    $("#updateTaskName").attr('value',name)
+    $("#updateTaskName").attr('value', name)
     $('#updateTask').submit();
 }
 
@@ -17,15 +17,15 @@ function addcategory() {
     $.ajax({
         type: "POST",
         url: "/category/add",
-        dataType:'json',
-        contentType:"application/json;charset=UTF-8",
+        dataType: 'json',
+        contentType: "application/json;charset=UTF-8",
         data: str,
-        success : function(data) {
+        success: function (data) {
             console.log("添加成功");
             $("#btn1").click();
-            window.location="/index"
+            window.location = "/index"
         },
-        error : function(req, err, ex) {
+        error: function (req, err, ex) {
             console.log("添加失败")
         }
     })
@@ -33,19 +33,55 @@ function addcategory() {
 
 
 function delcategorybyid(id) {
-    console.log("del...."+id)
+    console.log("del...." + id)
     $.ajax({
         type: "delete",
-        url: "/task/del/"+id,
-        dataType:'json',
-        contentType:"application/json;charset=UTF-8",
-        success : function(data) {
+        url: "/task/del/" + id,
+        dataType: 'json',
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
             console.log(data);
             // 删除成功后刷新页面
             window.location.reload();
         },
-        error: function (err){
-            console.log("错误..."+err)
+        error: function (err) {
+            console.log("错误..." + err)
         }
     })
+}
+
+function addTaskConfirm() {
+    var flag = confirm('你确认添加么');//confirm时确认提示框，点击确认返回true,点击取消返回false
+    if (flag) {//点击弹框的确认
+        $.ajax({
+            method: "post",
+            data: $('#addTaskForm').serialize(),//jq提供的获取form表单数据的快捷方式，通过form内标签的name属性{"username":"admin","passwd":"123456"}
+            url: "/task/add",
+            success: function (data) {//请求数据并返回结果给success,是一个对象，类似python的字典。回调函数。data只是一个函数的参数，跟上面的data不一样
+                console.log(data)
+                alert(data.data)
+                // 拼接要显示的内容的标签
+                // var sign_span = '<div><span>' + sign + '</span></div>';
+                // var userid_span = '<div><span>' + userid + '</span></div>';
+                // var form_object = document.getElementById('login_value');//获取到form对象
+                // form_object.insertAdjacentHTML('afterEnd', sign_span + userid_span)//插入到获取标签的最后
+                /*
+                *
+                * insertAdjacentHTML(where,tagStr): 父级标签内添加一个子标签字符串
+                        beforeBegin: 插入到获取到标签的前面
+                        afterBegin: 插入到获取到标签的子标签的前面
+                        beforeEnd: 插入到获取到标签的子标签的后面
+                        afterEnd: 插入到获取到标签的后面
+                */
+                window.location.reload();
+            },
+            error: function (err) {
+                console.log(err)
+            }
+
+        })
+    } else {
+        //点击弹框的取消
+        alert('点击了取消')
+    }
 }

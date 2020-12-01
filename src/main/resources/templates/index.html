@@ -127,7 +127,7 @@
                                                 <input type="hidden" name="id" th:value="${task.getId()}">
                                                 <input type="hidden" id="updateTaskName" name="name" value="">
                                                 <!-- <input type="submit" class="btn btn-block btn-success" value="确认更新">-->
-                                                <button type="button" class="btn btn-block btn-success"
+                                                <button type="button" class="btn btn-info"
                                                         onclick="confirmUpdateTask()">确认更新
                                                 </button>
                                             </form>
@@ -139,6 +139,33 @@
                                                 显示详情
                                             </button>
                                         </td>
+                                    </tr>
+                                    <!-- 添加清单行 start -->
+                                    <tr>
+                                       <form th:action="@{/task/add}" method="post" id="addTaskForm">
+                                           <td>
+                                               <div class="col-6">
+                                                   <div class="input-group">
+                                                       <!--  <div class="input-group-prepend">-->
+                                                       <!-- <span class="input-group-text">-->
+                                                       <!-- <input id="checkbox" type="checkbox" th:onclick="">-->
+                                                       <!-- </span>-->
+                                                       <!-- </div>-->
+                                                       <input type="hidden" name="categoryId" th:value="${currentCategory.id}">
+                                                       <input id="addtaskName" type="text" class="form-control" name="name" placeholder="请输入清单名称">
+                                                   </div>
+                                                   <!-- /input-group -->
+                                               </div>
+                                           </td>
+                                           <td>
+                                               <div class="col-12">
+                                                   <input id="addtaskDescription" type="text" class="form-control" name="description" placeholder="请输入清单描述">
+                                               </div>
+                                           </td>
+                                           <td>
+                                               <button id="addTask" type="button" class="btn btn-primary" th:onclick="addTaskConfirm()">添加清单</button>
+                                           </td>
+                                       </form>
                                     </tr>
                                     </tbody>
                                 </table>
