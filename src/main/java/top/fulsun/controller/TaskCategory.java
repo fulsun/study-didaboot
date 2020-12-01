@@ -23,13 +23,13 @@ public class TaskCategory {
 
     @PostMapping("/updateTask")
     // public String updateTask(@RequestBody Task task){
-    public String updateTask(Integer id, String name){
+    public String updateTask(Integer id, String name,Integer cid){
         Task task = new Task();
         task.setId(id);
         task.setName(name);
         taskMapper.updateByPrimaryKeySelective(task);
         //重定向到主页
-        return "redirect:/index";
+        return "redirect:/category/"+cid;
     }
 
     @ResponseBody

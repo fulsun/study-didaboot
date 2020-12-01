@@ -121,6 +121,7 @@
                                         </td>
                                         <td>
                                             <form id="updateTask" method="post" th:action="@{/task/updateTask}">
+                                                <input type="hidden" name="cid" th:value="${currentCategory.getId()}">
                                                 <input type="hidden" name="id" th:value="${task.getId()}">
                                                 <input type="hidden" id="updateTaskName" name="name" value="">
                                                 <!-- <input type="submit" class="btn btn-block btn-success" value="确认更新">-->
