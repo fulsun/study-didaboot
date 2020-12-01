@@ -30,3 +30,22 @@ function addcategory() {
         }
     })
 }
+
+
+function delcategorybyid(id) {
+    console.log("del...."+id)
+    $.ajax({
+        type: "delete",
+        url: "/task/del/"+id,
+        dataType:'json',
+        contentType:"application/json;charset=UTF-8",
+        success : function(data) {
+            console.log(data);
+            // 删除成功后刷新页面
+            window.location.reload();
+        },
+        error: function (err){
+            console.log("错误..."+err)
+        }
+    })
+}

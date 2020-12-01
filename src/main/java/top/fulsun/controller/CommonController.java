@@ -41,6 +41,7 @@ public class CommonController {
         TaskExample.Criteria criteria = taskExample.createCriteria();
         if (id != 0) {
             criteria.andCategoryIdEqualTo(id);
+            criteria.andRunEqualTo((byte) 0);
             taskListForToday = taskMapper.selectByExample(taskExample);
         } else {
             taskListForToday = null;
@@ -71,6 +72,7 @@ public class CommonController {
         TaskExample.Criteria criteria = taskExample.createCriteria();
         if (todayCategoryID.size() > 0) {
             criteria.andCategoryIdIn(todayCategoryID);
+            criteria.andRunEqualTo((byte) 0);
             taskListForToday = taskMapper.selectByExample(taskExample);
         } else {
             taskListForToday = null;

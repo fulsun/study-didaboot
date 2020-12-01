@@ -109,7 +109,7 @@
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                       <span class="input-group-text">
-                                                        <input type="checkbox">
+                                                        <input type="checkbox" th:onchange="'delcategorybyid('+${task.id}+')'">
                                                       </span>
                                                     </div>
                                                     <input type="text" id="taskName" class="form-control"
@@ -117,6 +117,7 @@
                                                 </div>
                                                 <!-- /input-group -->
                                             </div>
+
                                         </td>
                                         <td>
                                             <form id="updateTask" method="post" th:action="@{/task/updateTask}">
