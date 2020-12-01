@@ -42,7 +42,9 @@
                          with font-awesome or any other icon font library -->
                     <li class="nav-item" th:each="category : ${session.categoryLists}">
                         <!-- <a href="#" class="nav-link" th:href="@{/category/ + ${category.id}}"+>-->
-                        <a href="#" class="nav-link" th:href="@{|/category/${category.id}}" +>
+                        <a href="#" class="nav-link" th:href="@{|/category/${category.id}}"
+                            th:class='${(category.id==currentCategory.id)?("nav-link active"):("nav-link")}'
+                            >
                             <!-- 图标留着，以后弄-->
                             <!-- <i class="nav-icon fas fa-th"></i>-->
                             <p th:text="${category.name}">
