@@ -108,3 +108,8 @@ function delcategory(id) {
         console.log('点击了取消')
     }
 }
+
+function showtaskdetail(task){
+    console.log(task.description)
+    $("#taskdesc").text(task.description)
+}
