@@ -3,11 +3,20 @@ function getInputValueById() {
     return value;
 }
 
-function confirmUpdateTask() {
+function confirmUpdateTaskName() {
     // $("#updateTask").submit();
     var name = getInputValueById();
-    $("#updateTaskName").attr('value', name)
-    $('#updateTask').submit();
+    $.ajax({
+        type: "PUT",
+        url: "/task/updateTask",
+        data: $("#updateTask").serialize(),
+        success: function (data){
+            alert(data.data);
+        },
+        error: function (err){
+            console.log(err);
+        }
+    })
 }
 
 function addcategory() {

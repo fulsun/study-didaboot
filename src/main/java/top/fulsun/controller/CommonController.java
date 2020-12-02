@@ -54,7 +54,7 @@ public class CommonController {
         return "index";
     }
 
-    @RequestMapping("/index")
+    @RequestMapping("/")
     public String index(Model model, HttpServletRequest request) {
         //得到所有的分类
         List<Category> categoryLists = getCategoryByIdOrName(null, null);

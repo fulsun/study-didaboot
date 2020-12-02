@@ -32,7 +32,7 @@ public class DruidConfig {
     @Bean
     public ServletRegistrationBean statViewServlet(){
         ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
-        Map<String,String> initParams = new HashMap<>();
+        Map<String,String> initParams = new HashMap<>(16);
         //账号
         initParams.put("loginUsername","admin");
         //密码
@@ -44,12 +44,15 @@ public class DruidConfig {
         bean.setInitParameters(initParams);
         return bean;
     }
-    //配置一个webURL监控的filter
+    /**
+     *  配置一个webURL监控的filter
+     * @return FilterRegistrationBean
+     */
     @Bean
     public FilterRegistrationBean webStatFilter(){
         FilterRegistrationBean bean = new FilterRegistrationBean();
         bean.setFilter(new WebStatFilter());
-        Map<String,String> initParams = new HashMap<>();
+        Map<String,String> initParams = new HashMap<>(16);
         //忽略资源
         initParams.put("exclusions","*.js,*.gif,*.jpg, *.bmp, *.png,*.css,*.ico,/druid/*");
         bean.setInitParameters(initParams);
@@ -57,7 +60,10 @@ public class DruidConfig {
         return  bean;
     }
 
-    // SQL防火墙过滤。控制系统内的SQL执行权限，禁止非法SQL行为
+    /**
+     * SQL防火墙过滤。控制系统内的SQL执行权限，禁止非法SQL行为
+     * @return WallFilter
+     */
     @Bean
     public WallFilter wallFilter(){
         WallConfig wallConfig = new WallConfig();
