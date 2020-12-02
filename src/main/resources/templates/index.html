@@ -81,7 +81,9 @@
                         <div class="card">
                             <div class="card-header">
                                 <!-- th:text好像会覆盖标签里面的文本内容-->
-                                <h3 class="card-title" th:text="${currentCategory.getName()} + '的清单'"></h3>
+                                <a href="#" type="button" data-toggle="modal" data-target="#delete-category" class="d-block">
+                                    <h3 class="card-title" th:text="${currentCategory.getName()} + '的清单'"></h3>
+                                </a>
                                 <div class="card-tools">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="table_search" class="form-control float-right"
@@ -174,6 +176,30 @@
                         </div>
                         <!-- /.card -->
                     </div>
+                </div>
+
+                <!-- 删除清单分类模态窗 -->
+                <div class="modal fade" id="delete-category" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-success">
+                            <div class="modal-header">
+                                <h4 class="modal-title">确认删除该分类吗？</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                            </div>
+                            <form th:action="@{/category/add}" method="post">
+                                <div class="modal-body">
+                                    <p style="font-size: 20px">删除后该分类下所有的清单都将消失</p>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" id="btn2" class="btn btn-outline-light" data-dismiss="modal">关闭</button>
+                                    <button type="button" id="delCategory" class="btn btn-outline-light" th:onclick="'delcategory('+${currentCategory.id}+')'">确认删除</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
                 </div>
 
                 <!-- 这是那个弹框的代码 -->

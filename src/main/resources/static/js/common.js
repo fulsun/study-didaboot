@@ -85,3 +85,26 @@ function addTaskConfirm() {
         alert('点击了取消')
     }
 }
+
+
+function delcategory(id) {
+    // console.log("delcategory..."+id)
+    var flag = confirm('你确认删除么');//confirm时确认提示框，点击确认返回true,点击取消返回false
+    if (flag) {//点击弹框的确认
+        $.ajax({
+            method: "delete",
+            url: "/category/del/" + id,
+            success: function (data) {//请求数据并返回结果给success,是一个对象，类似python的字典。回调函数。data只是一个函数的参数，跟上面的data不一样
+                console.log(data)
+                $("#btn2").click();
+                window.location.href = "/index";
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    } else {
+        //点击弹框的取消
+        console.log('点击了取消')
+    }
+}
