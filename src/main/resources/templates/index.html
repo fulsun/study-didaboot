@@ -125,7 +125,7 @@
                                         </td>
                                         <td>
                                             <form id="updateTask" method="post" th:action="@{/task/updateTask}">
-                                                <input type="hidden" name="cid" th:value="${currentCategory.getId()}">
+                                                <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
                                                 <input type="hidden" name="id" th:value="${task.getId()}">
                                                 <input type="hidden" id="updateTaskName" name="name" value="">
                                                 <!-- <input type="submit" class="btn btn-block btn-success" value="确认更新">-->
@@ -137,7 +137,7 @@
                                         <td>
                                             <button type="button" class="btn btn-success" data-toggle="modal"
                                                     data-target="#modal-success"
-                                                    data-task="${task}">
+                                                    th:onclick="showtaskdetail([[${task}]])">
                                                 显示详情
                                             </button>
                                         </td>
@@ -202,24 +202,30 @@
                     <!-- /.modal-dialog -->
                 </div>
 
-                <!-- 这是那个弹框的代码 -->
+                <!-- 显示清单详情的模态窗 -->
                 <div class="modal fade" id="modal-success" style="display: none;" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content bg-success">
-                            <div class="modal-header">
-                                <h4 class="modal-title">清单详情</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span></button>
+                        <form name="updateTask" id="updateTaskdesc">
+                            <div class="modal-content bg-success">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">清单详情</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span></button>
+                                </div>
+                                <input type="hidden" id="updateTastid" name="id" value="">
+                                <div class="modal-body">
+                                    <textarea id="taskdesc" class="form-control" rows="3" name="description"
+                                              placeholder="请输入清单的描述信息"></textarea>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">关闭</button>
+                                    <button type="button" class="btn btn-outline-light" th:onclick="updatetaskdesc()">
+                                        确认修改
+                                    </button>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <textarea class="form-control" rows="3" placeholder="请输入清单的描述信息"></textarea>
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-outline-light" data-dismiss="modal">关闭</button>
-                                <button type="button" class="btn btn-outline-light">确认修改</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
+                            <!-- /.modal-content -->
+                        </form>
                     </div>
                     <!-- /.modal-dialog -->
                 </div>

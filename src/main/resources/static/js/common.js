@@ -112,4 +112,21 @@ function delcategory(id) {
 function showtaskdetail(task){
     console.log(task.description)
     $("#taskdesc").text(task.description)
+    $("#updateTastid").val(task.id)
+}
+
+function updatetaskdesc() {
+    $.ajax({
+        method: "put",
+        url: "/task/update",
+        data: $('#updateTaskdesc').serialize(),
+        success: function (data) {//请求数据并返回结果给success,是一个对象，类似python的字典。回调函数。data只是一个函数的参数，跟上面的data不一样
+            console.log(data)
+            $("#modal-success button:first").click();
+            // window.location.href = "/index";
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
 }

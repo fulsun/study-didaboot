@@ -23,9 +23,21 @@ public class TaskCategory {
     @Autowired
     TaskMapper taskMapper;
 
+    @PutMapping("/update")
+    @ResponseBody
+    public Map updateTaskDesc(Integer id, String description){
+        Task task = new Task();
+        task.setId(id);
+        task.setDescription(description);
+        int i = taskMapper.updateByPrimaryKeySelective(task);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("data", i);
+        return map;
+    }
+
     @PostMapping("/updateTask")
     // public String updateTask(@RequestBody Task task){
-    public String updateTask(Integer id, String name,Integer cid){
+    public String updateTask(Integer id, String name, @RequestParam("categoryId") Integer cid){
         Task task = new Task();
         task.setId(id);
         task.setName(name);
