@@ -1,0 +1,101 @@
+package top.fulsun.common.api;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * @author fulsun
+ * @title: Result
+ * @projectName springbootdemo
+ * @description: 封装API的错误码 通用返回对象
+ * @date 2020/12/310:29:53
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Result<T> {
+    private Integer code; // 状态码
+    private String message; //提示消息
+    private T data;// 数据
+
+    public Result(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+
+    }
+
+    /**
+     * 成功返回结果
+     *
+     * @param data 获取的数据
+     */
+    public static <T> Result<T> success(T data) {
+        return new Result<T>(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMessage(), data);
+    }
+
+    /**
+     * 成功返回结果
+     *
+     * @param data    获取的数据
+     * @param message 提示信息
+     */
+    public static <T> Result<T> success(T data, String message) {
+        return new Result<T>(ResultEnum.SUCCESS.getCode(), message, data);
+    }
+
+    /**
+     * 失败返回结果
+     *
+     * @param errorCode 错误码
+     */
+    public static <T> Result<T> failed(Result errorCode) {
+        return new Result<T>(errorCode.getCode(), errorCode.getMessage(), null);
+    }
+
+    /**
+     * 失败返回结果
+     *
+     * @param message 提示信息
+     */
+    public static <T> Result<T> failed(String message) {
+        return new Result<T>(ResultEnum.FAILED.getCode(), message, null);
+    }
+
+    /**
+     * 失败返回结果
+     */
+    public static <T> Result<T> failed() {
+        return failed(ResultEnum.FAILED.getMessage());
+    }
+
+    /**
+     * 参数验证失败返回结果
+     */
+    public static <T> Result<T> validateFailed() {
+        return failed(ResultEnum.VALIDATE_FAILED.getMessage());
+    }
+
+    /**
+     * 参数验证失败返回结果
+     *
+     * @param message 提示信息
+     */
+    public static <T> Result<T> validateFailed(String message) {
+        return new Result<T>(ResultEnum.VALIDATE_FAILED.getCode(), message, null);
+    }
+
+    /**
+     * 未登录返回结果
+     */
+    public static <T> Result<T> unauthorized(T data) {
+        return new Result<T>(ResultEnum.UNAUTHORIZED.getCode(), ResultEnum.UNAUTHORIZED.getMessage(), data);
+    }
+
+    /**
+     * 未授权返回结果
+     */
+    public static <T> Result<T> forbidden(T data) {
+        return new Result<T>(ResultEnum.FORBIDDEN.getCode(), ResultEnum.FORBIDDEN.getMessage(), data);
+    }
+}
