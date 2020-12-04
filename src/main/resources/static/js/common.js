@@ -4,17 +4,17 @@ function getInputValueById() {
 }
 
 function confirmUpdateTaskName() {
-    // $("#updateTask").submit();
+    $('#updateTaskName').attr("value", $('#taskName').val())
     var name = getInputValueById();
     $.ajax({
         type: "PUT",
         url: "/task/updateTask",
         data: $("#updateTask").serialize(),
-        success: function (data){
-            alert(data.data);
+        success: function (data) {
+            alert(data.message);
         },
-        error: function (err){
-            console.log(err);
+        error: function (err) {
+            console.log(err.message);
         }
     })
 }
@@ -30,14 +30,16 @@ function addcategory() {
         contentType: "application/json;charset=UTF-8",
         data: str,
         success: function (data) {
-            console.log("添加成功");
-            $("#btn1").click();
-            window.location = "/index"
+            // $("#btn1").click();
+            console.log(data.message);
+            window.location.reload();
         },
-        error: function (req, err, ex) {
-            console.log("添加失败")
+        error: function (err) {
+            $("#btn1").click();
+            alter(err.message);
         }
     })
+
 }
 
 
@@ -49,12 +51,12 @@ function delcategorybyid(id) {
         dataType: 'json',
         contentType: "application/json;charset=UTF-8",
         success: function (data) {
-            console.log(data);
+            console.log(data.message);
             // 删除成功后刷新页面
-            window.location.reload();
+            window.location.href = "/";
         },
         error: function (err) {
-            console.log("错误..." + err)
+          alert(err.message)
         }
     })
 }
@@ -118,7 +120,7 @@ function delcategory(id) {
     }
 }
 
-function showtaskdetail(task){
+function showtaskdetail(task) {
     console.log(task.description)
     $("#taskdesc").text(task.description)
     $("#updateTastid").val(task.id)

@@ -1,22 +1,24 @@
 package top.fulsun.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import top.fulsun.entity.Category;
 import top.fulsun.entity.CategoryExample;
 import top.fulsun.entity.Task;
 import top.fulsun.entity.TaskExample;
 import top.fulsun.mapper.CategoryMapper;
 import top.fulsun.mapper.TaskMapper;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @program: springbootdemo
@@ -32,31 +34,29 @@ public class CommonController {
     @Autowired
     TaskMapper taskMapper;
 
-
     @GetMapping("/category/{cid}")
-    public String getTaskByCategoryid(@PathVariable("cid") int id, Model model) {
-        //默认是显示今天这个分类下的清单
-        List<Task> taskListForToday = new ArrayList<>();
+    public String getTaskByCategoryid(@PathVariable(value = "cid", required = true) int id, Model model,
+        HttpSession session) {
+        if (session.getAttribute("categoryLists") == null) {
+            session.setAttribute("categoryLists", getCategoryByIdOrName(null, null));
+        }
+        // 显示这个分类下的清单
+        List<Task> taskListByCId = null;
         TaskExample taskExample = new TaskExample();
         TaskExample.Criteria criteria = taskExample.createCriteria();
         if (id != 0) {
             criteria.andCategoryIdEqualTo(id);
-            criteria.andRunEqualTo((byte) 0);
-            taskListForToday = taskMapper.selectByExample(taskExample);
-        } else {
-            taskListForToday = null;
+            criteria.andRunEqualTo((byte)0);
+            taskListByCId = taskMapper.selectByExample(taskExample);
+            model.addAttribute("currentCategory", getCategoryByIdOrName(id, null).get(0));
         }
-
-        List<Category> categoryByIdOrName = getCategoryByIdOrName(id, null);
-        Category category = categoryByIdOrName.get(0);
-        model.addAttribute("currentCategory", category);
-        model.addAttribute("taskList", taskListForToday);
+        model.addAttribute("taskList", taskListByCId);
         return "index";
     }
 
     @RequestMapping("/")
     public String index(Model model, HttpServletRequest request) {
-        //得到所有的分类
+        // 得到所有的分类
         List<Category> categoryLists = getCategoryByIdOrName(null, null);
         HttpSession session = request.getSession();
         session.setAttribute("categoryLists", categoryLists);
@@ -66,13 +66,13 @@ public class CommonController {
             todayCategoryID.add(category.getId());
         }
 
-        //默认是显示今天这个分类下的清单
+        // 默认是显示今天这个分类下的清单
         List<Task> taskListForToday = new ArrayList<>();
         TaskExample taskExample = new TaskExample();
         TaskExample.Criteria criteria = taskExample.createCriteria();
         if (todayCategoryID.size() > 0) {
             criteria.andCategoryIdIn(todayCategoryID);
-            criteria.andRunEqualTo((byte) 0);
+            criteria.andRunEqualTo((byte)0);
             taskListForToday = taskMapper.selectByExample(taskExample);
         } else {
             taskListForToday = null;
@@ -83,7 +83,6 @@ public class CommonController {
         model.addAttribute("taskList", taskListForToday);
         return "index";
     }
-
 
     private List<Category> getCategoryByIdOrName(Integer id, String name) {
         List<Category> categoryLists = new ArrayList<>();
