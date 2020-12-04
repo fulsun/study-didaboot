@@ -3,6 +3,7 @@ package top.fulsun.common.api;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import top.fulsun.common.exception.DefinitionException;
 
 /**
  * @author fulsun
@@ -18,6 +19,26 @@ public class Result<T> {
     private Integer code; // 状态码
     private String message; //提示消息
     private T data;// 数据
+
+    /**
+     * @param resultEnum 自定义枚举类，包含 code 和 message
+     */
+    public Result(ResultEnum resultEnum) {
+        this.code = resultEnum.getCode();
+        this.message = resultEnum.getMessage();
+    }
+
+    /**
+     * @param resultEnum 自定义枚举类，包含 code 和 message
+     * @param data 数据
+     */
+    public Result(ResultEnum resultEnum, T data) {
+        this.code = resultEnum.getCode();
+        this.message = resultEnum.getMessage();
+        this.data = data;
+    }
+
+
 
     public Result(Integer code, String message) {
         this.code = code;
@@ -97,5 +118,23 @@ public class Result<T> {
      */
     public static <T> Result<T> forbidden(T data) {
         return new Result<T>(ResultEnum.FORBIDDEN.getCode(), ResultEnum.FORBIDDEN.getMessage(), data);
+    }
+
+    /**
+     * 自定义异常返回的结果
+     * @param definitionException 自定义异常处理类
+     * @return 返回自定义异常
+     */
+    public static Result<Object> defineError(DefinitionException definitionException) {
+        return new Result<>(definitionException.getErrorCode(), definitionException.getErrorMessage());
+    }
+
+    /**
+     * 其他异常处理方法返回的结果
+     * @param resultEnum 自定义枚举类，包含 code 和 message
+     * @return 返回其他异常
+     */
+    public static Result<Object> otherError(ResultEnum resultEnum) {
+        return new Result<>(resultEnum);
     }
 }
